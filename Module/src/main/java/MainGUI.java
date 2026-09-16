@@ -12,7 +12,10 @@ public class MainGUI extends JFrame {
     private JTextArea outputArea;
 
     // there should be a private member variable named `sessions` :
+
     // private SomethingOrOther sessions;
+
+    //private mySessions sessions;
 
     // the constructor for the class. This will initialize
     // the class's member variables:
