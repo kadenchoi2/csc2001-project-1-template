@@ -13,9 +13,10 @@ public class MainGUI extends JFrame {
 
     // there should be a private member variable named `sessions` :
 
-    // private SomethingOrOther sessions;
 
-    //private mySessions sessions;
+
+    private Session sessions;
+    private SessionsList mySessionsList = null;
 
     // the constructor for the class. This will initialize
     // the class's member variables:
@@ -110,6 +111,12 @@ public class MainGUI extends JFrame {
 
             // TO DO: construct a session object, insert it into
             // the list of sessions
+            Session mySesh= new Session(id, title, mentor, date, location, maxParticipants);
+            this.mySessionsList= new SessionsList(mySesh, this.mySessionsList);
+            //SessionsList mySessions = new SessionsList(mySesh, null);
+            IO.println(this.mySessionsList);
+            // Print not needed, just in place to test to make sure it wokrs
+            //IO.println(mySessions);
 
             outputArea.setText("Session Added Successfully\n");
             // Clear the input fields
