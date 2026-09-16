@@ -2,6 +2,5 @@ public record session(String id, String title, String mentor, String date, Strin
 
     public static void Main(String[] args){
 
-    
     System.out.println("Hello");}
 }
