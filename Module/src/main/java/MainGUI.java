@@ -218,11 +218,44 @@ public class MainGUI extends JFrame {
 
     // given an id, remove that session from the list
     private void removeSession() {
-        int id = Integer.parseInt(idField.getText());
-        // remove the session, print an error to the outputArea
-        // if it's not found
-        // ... code here ...
+       int id = Integer.parseInt(idField.getText());
+       SessionsList currentList=mySessionsList;
+       boolean isItFound=false;
+
+       while(currentList!=null){
+           if(currentList.mySes().id()==id){
+               isItFound=true;
+               break;
+           }
+           currentList= currentList.rest();
+
+       }
+
+       if(!isItFound){
+           outputArea.setText("SESSION NOT FOUND");
+           clearFields();
+
+       }
+
+       mySessionsList=removeSetID(mySessionsList, id);
+       if(isItFound){
+        outputArea.setText("SESSION HAS BEEN REMOVED");}
+       clearFields();
+
     }
+
+    // Helper function to make remove Session easier
+    private SessionsList removeSetID(SessionsList myList, int id){
+        if(myList==null){
+            return null;
+        }
+
+        if(myList.mySes().id()==id){
+            return myList.rest();
+        }
+        return new SessionsList(myList.mySes(), removeSetID(myList.rest(), id));
+    }
+
 
     // add one to the count of the specified session.
     // MUTATES participant count of session.
