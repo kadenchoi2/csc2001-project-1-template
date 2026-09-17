@@ -129,16 +129,27 @@ public class MainGUI extends JFrame {
 
     // display all sessions in the output area
     private void displaySessions() {
+        // display all sessions in the output area private void displaySessions(){
         outputArea.setText("");
-
         // iterate over sessions; display each one
-        // to the output window, using the `append`
-        // method of the outputArea.
+        // to the output window, using the 'append'
+        // method of the outputArea
 
         // between each one, print a separator line,
         // as e.g.
+        SessoionsList current = mySessionsList;
+        while (current != null){
+            Session s = current.mySes();
+            outputArea.append("Session ID: " + s.id() + "\n");
+            outputArea.append("Title: " + s.title() + "\n");
+            outputArea.append("Mentor " + s.mentor() + "\n");
+            outputArea.append("Date: " + s.date() + "\n");
+            outputArea.append("Location: " + s.location() + "\n");
+            outputArea.append("Max Participants: " + s.maxPar() + "\n");
+            outputArea.append("\n--------------------\n");
+            current = current.rest();
+        }
 
-        outputArea.append("\n--------------------\n");
     }
 
     // search by ID if presesnt, mentor otherwise, display results
