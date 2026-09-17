@@ -137,7 +137,7 @@ public class MainGUI extends JFrame {
 
         // between each one, print a separator line,
         // as e.g.
-        SessoionsList current = mySessionsList;
+        SessionsList current = mySessionsList;
         while (current != null){
             Session s = current.mySes();
             outputArea.append("Session ID: " + s.id() + "\n");
@@ -159,11 +159,30 @@ public class MainGUI extends JFrame {
             int id = Integer.parseInt(idField.getText().trim());
             // find session by ID, using a `searchByID` method
             // ... code here ...
-            /* if (result != null)
+            SessionsList current = mySessionsList;
+            Session result = null;
+
+            while (current != null){
+                if (current.mySes().id() == id){
+                    result = current.mySes();
+                    break;
+                }
+                current = current.rest();
+            }
+            /* if (result != null) */
+            if (result != null){
                 // display session to the output area...
-            else
-                outputArea.setText("Session not found.");
-             */
+                outputArea.setText("SESSION ID: " + result.id() + "\n");
+                outputArea.append("TITLE: " + result.title() + "\n");
+                outputArea.append("MENTOR: " + result.mentor() + "\n");
+                outputArea.append("DATE: " + result.date() + "\n");
+                outputArea.append("LOCATION: " + result.location() + "\n");
+                outputArea.append("MAX PARTICIPANTS: " + result.maxPar() + "\n");
+            // else
+                //outputArea.setText("Session not found.");
+            } else {
+                outputArea.setText("SESSION NOT FOUND.");
+            }
         }
         // Otherwise, search by mentor if the Mentor field is not empty
         else if (!mentorField.getText().trim().isEmpty()) {
@@ -171,13 +190,29 @@ public class MainGUI extends JFrame {
             // find session by mentor. In this case, the result
             // may be a list of sessions...
             // ... code here ...
-            /*
-            if (result != null)
-                // display all sessions in the list
-            else
-                outputArea.setText("No session found for mentor: " + mentor);
-             */
-        }
+            SessionsList current = mySessionsList;
+            boolean found = false;
+            outputArea.setText("");
+
+            while (current != null){
+                Session s = current.mySes();
+                if (s.mentor().equals(mentor)){
+                    outputArea.append("SESSION ID: " + s.id() + "\n");
+                    outputArea.append("TITLE: " + s.title() + "\n");
+                    outputArea.append("MENTOR: " + s.mentor() + "\n");
+                    outputArea.append("DATE: " + s.date() + "\n");
+                    outputArea.append("LOCATION: " + s.location() + "\n");
+                    outputArea.append("MAX PARTICIPANTS: " + s.maxPar() + "\n");
+                    outputArea.append("\n--------------------\n");
+                    found = true;
+                }
+                current = current.rest();
+            }
+            if (!found){
+                outputArea.setText("NO SESSION FOUND FOR MENTOR: " + mentor);
+            }
+            }
+
         // Nothing entered
         else {
             outputArea.setText("Please enter a Session ID or Mentor name.");
