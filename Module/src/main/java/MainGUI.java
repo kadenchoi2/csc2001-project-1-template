@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 public class MainGUI extends JFrame {
     private JTextField idField;
     private JTextField titleField;
@@ -138,7 +137,7 @@ public class MainGUI extends JFrame {
         // between each one, print a separator line,
         // as e.g.
         SessionsList current = mySessionsList;
-        while (current != null){
+        while (current != null) {
             Session s = current.mySes();
             outputArea.append("Session ID: " + s.id() + "\n");
             outputArea.append("Title: " + s.title() + "\n");
@@ -149,7 +148,6 @@ public class MainGUI extends JFrame {
             outputArea.append("\n--------------------\n");
             current = current.rest();
         }
-
     }
 
     // search by ID if presesnt, mentor otherwise, display results
@@ -194,9 +192,9 @@ public class MainGUI extends JFrame {
             boolean found = false;
             outputArea.setText("");
 
-            while (current != null){
+            while (current != null) {
                 Session s = current.mySes();
-                if (s.mentor().equals(mentor)){
+                if (s.mentor().equals(mentor)) {
                     outputArea.append("SESSION ID: " + s.id() + "\n");
                     outputArea.append("TITLE: " + s.title() + "\n");
                     outputArea.append("MENTOR: " + s.mentor() + "\n");
@@ -208,14 +206,13 @@ public class MainGUI extends JFrame {
                 }
                 current = current.rest();
             }
-            if (!found){
+            if (!found) {
                 outputArea.setText("NO SESSION FOUND FOR MENTOR: " + mentor);
             }
-            }
-
+        }
         // Nothing entered
         else {
-            outputArea.setText("Please enter a Session ID or Mentor name.");
+            outputArea.setText("Please enter a Session ID or Mentor Name.");
         }
     }
 
