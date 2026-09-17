@@ -110,7 +110,7 @@ public class MainGUI extends JFrame {
 
             // TO DO: construct a session object, insert it into
             // the list of sessions
-            Session mySesh= new Session(id, title, mentor, date, location, maxParticipants);
+            Session mySesh= new Session(id, title, mentor, date, location, maxParticipants, 0);
             this.mySessionsList= new SessionsList(mySesh, this.mySessionsList);
             //SessionsList mySessions = new SessionsList(mySesh, null);
             IO.println(this.mySessionsList);
@@ -145,6 +145,7 @@ public class MainGUI extends JFrame {
             outputArea.append("Date: " + s.date() + "\n");
             outputArea.append("Location: " + s.location() + "\n");
             outputArea.append("Max Participants: " + s.maxPar() + "\n");
+            outputArea.append("Current Participants: " + s.curPar() + "\n");
             outputArea.append("\n--------------------\n");
             current = current.rest();
         }
@@ -263,6 +264,42 @@ public class MainGUI extends JFrame {
         int id = Integer.parseInt(idField.getText());
         // increment participants field of session,
         // print success or failure message.
+        SessionsList currList = mySessionsList;
+        boolean isItFound=false;
+        while(currList!=null){
+            Session s = currList.mySes();
+            if(s.id()==id){
+                isItFound=true;
+                if(s.curPar()<s.maxPar()){
+                    Session updated = new Session(s.id(), s.title(), s.mentor(), s.date(), s.location(), s.maxPar(), s.curPar()+1);
+                    mySessionsList= registerNewID(mySessionsList, id);
+                    outputArea.setText("Participant Added Succesfully!");
+                    IO.println(updated.curPar());
+
+                }
+                else if(s.curPar()==s.maxPar()){
+                    outputArea.setText("Session Is Full. ");}
+            }
+
+        currList=currList.rest();
+        }
+        if(!isItFound){
+            outputArea.setText("Session Is Not Found");
+        }
+    }
+
+    // Private Helper Function to update
+    private  SessionsList registerNewID(SessionsList list, int id){
+        if(list == null){
+            return null;
+        }
+        Session s = list.mySes();
+        if(s.id()== id){
+            Session updatedSes= new Session(s.id(), s.title(), s.mentor(), s.date(), s.location(), s.maxPar(), s.curPar() +1);
+            return new SessionsList(updatedSes, list.rest());
+        }
+        return new SessionsList( s, registerNewID(list.rest(), id));
+
     }
 
     public static void main(String[] args) {
