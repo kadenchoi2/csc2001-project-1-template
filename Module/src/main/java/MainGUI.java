@@ -12,8 +12,6 @@ public class MainGUI extends JFrame {
 
     // there should be a private member variable named `sessions` :
 
-
-
     private Session sessions;
     private SessionsList mySessionsList = null;
 
@@ -234,7 +232,7 @@ public class MainGUI extends JFrame {
         }
     }
 
-    // given an id, remove that session from the list
+    // given an id, remove that session from the list   
     private void removeSession() {
        int id = Integer.parseInt(idField.getText());
        SessionsList currentList=mySessionsList;

@@ -1,0 +1,26 @@
+Kaden
+9/16 Worked from 12- 1 pm
+Created the working constructors with Sessions and SessionsList and created the working code for adding sessions.
+
+Kaden
+9/17 Worked from 2:00-4:30 pm
+Created the removeSession function
+
+Kaden
+9/17 5pm - 7pm
+Created the registerParticipation method with helper functions to keep track of participant data.
+
+Kaden
+9/18 12am-12:30am
+Ran through code, testing edge cases and added comments to code.
+
+Malik
+09/16 Worked from 3-4:30pm and 6-8pm
+Created the Display and Search functions
+
+Malik
+09/17 Worked from 5:30-7pm
+Fixing the Display and Search functions where it would work chronologically and in order, as well as tweaking the addSession function so it can work.
+
+Malik 09/17 Worked from 11-12am
+Created the insertByDate helper function so that the Display and Search function could work in order and chronologically.
