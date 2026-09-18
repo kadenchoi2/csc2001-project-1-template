@@ -111,12 +111,19 @@ public class MainGUI extends JFrame {
             // TO DO: construct a session object, insert it into
             // the list of sessions
             Session mySesh= new Session(id, title, mentor, date, location, maxParticipants, 0);
-            this.mySessionsList= new SessionsList(mySesh, this.mySessionsList);
+            SessionsList current = mySessionsList;
+            while (current != null){
+                if(current.mySes().id() == id){
+                    outputArea.setText("SESSION ID ALREADY EXISTS");
+                    return;
+                }
+                current = current.rest();
+            }
             //SessionsList mySessions = new SessionsList(mySesh, null);
+            mySessionsList = insertByDate(mySessionsList, mySesh);
             IO.println(this.mySessionsList);
             // Print not needed, just in place to test to make sure it wokrs
             //IO.println(mySessions);
-
             outputArea.setText("Session Added Successfully\n");
             // Clear the input fields
             clearFields();
@@ -124,6 +131,16 @@ public class MainGUI extends JFrame {
         catch(Exception e) {
             outputArea.setText("Invalid input");
         }
+    }
+
+    private SessionsList insertByDate(SessionsList list, Session newSession){
+        if (list == null){
+            return new SessionsList(newSession, null);
+        }
+        if (newSession.date().compareTo(list.mySes().date()) < 0){
+            return new SessionsList(newSession, list);
+        }
+        return new SessionsList(list.mySes(), insertByDate(list.rest(), newSession));
     }
 
     // display all sessions in the output area
@@ -139,13 +156,13 @@ public class MainGUI extends JFrame {
         SessionsList current = mySessionsList;
         while (current != null) {
             Session s = current.mySes();
-            outputArea.append("Session ID: " + s.id() + "\n");
-            outputArea.append("Title: " + s.title() + "\n");
-            outputArea.append("Mentor " + s.mentor() + "\n");
-            outputArea.append("Date: " + s.date() + "\n");
-            outputArea.append("Location: " + s.location() + "\n");
-            outputArea.append("Max Participants: " + s.maxPar() + "\n");
-            outputArea.append("Current Participants: " + s.curPar() + "\n");
+            outputArea.append("SESSION ID: " + s.id() + "\n");
+            outputArea.append("TITLE: " + s.title() + "\n");
+            outputArea.append("MENTOR " + s.mentor() + "\n");
+            outputArea.append("DATE: " + s.date() + "\n");
+            outputArea.append("LOCATION: " + s.location() + "\n");
+            outputArea.append("MAX PARTICIPANTS: " + s.maxPar() + "\n");
+            outputArea.append("CURRENT PARTICIPANTS: " + s.curPar() + "\n");
             outputArea.append("\n--------------------\n");
             current = current.rest();
         }
